@@ -1,0 +1,6 @@
+{
+  "id": "bluemap-powah",
+  "entrypoint": "io.github.janguenter.bluemap.powah.BlueMapPowahAddon",
+  "dependencies": [],
+  "soft-dependencies": []
+}

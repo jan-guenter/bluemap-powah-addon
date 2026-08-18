@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "projectLicense": "LGPL-3.0-only",
+  "inputs": [
+    {
+      "name": "BlueMap",
+      "version": "5.22-agent.backport-5.22-mc1.21.1-2",
+      "commit": "9be321df995a1103808621d529eb72773e719d4d",
+      "license": "MIT",
+      "lane": "runtime-interface",
+      "bundled": false
+    },
+    {
+      "name": "Powah",
+      "version": "6.2.10",
+      "filename": "Powah-6.2.10.jar",
+      "size": 2737991,
+      "sha256": "0e604a7356111c1dd44a00ea42fc1aa960d9faeb978261349df1138fcee4d0b4",
+      "sourceCommit": "a5a8f25b5bafb58b694dc44ef0e4c0f14d9e4c11",
+      "license": "LGPL-3.0-only",
+      "lane": "adapted-state-and-geometry",
+      "bundled": false
+    }
+  ]
+}
