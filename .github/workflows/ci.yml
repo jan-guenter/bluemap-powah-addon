@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: jan-guenter/BlueMap
-          ref: 9be321df995a1103808621d529eb72773e719d4d
+          ref: 7e07f4e74ec1e92a6ead9aa1e66054af3e133aac
           path: .ci/bluemap
           submodules: recursive
           persist-credentials: false
@@ -45,13 +45,14 @@ jobs:
           gradle-version: '9.6.1'
           cache-read-only: ${{ github.event_name == 'pull_request' }}
 
-      - name: Validate provenance and accepted artifact
+      - name: Validate migration candidate
         run: |
           python3 -m json.tool provenance/upstreams.json >/dev/null
           gradle --no-daemon \
             -PbluemapSourcePath=.ci/bluemap \
             clean check build generatePomFileForAddonPublication \
-            generateMetadataFileForAddonPublication
+            generateMetadataFileForAddonPublication \
+            verifyAcceptedProductionJar
 
       - name: Upload review outputs
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

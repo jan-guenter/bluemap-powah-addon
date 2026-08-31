@@ -14,6 +14,10 @@ base {
     archivesName = artifact_id
 }
 
+sourceSets {
+    main.java.srcDir 'modules/bluemap-addon-adapter-api/src/main/java'
+}
+
 repositories {
     mavenCentral()
     maven {
@@ -32,7 +36,21 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+def artifactPins = [
+        [key: 'powah', property: 'powahJar']
+]
+
+tasks.named('test', Test).configure {
+    artifactPins.each { pin ->
+        def exactJar = providers.gradleProperty(pin.property)
+        if (exactJar.isPresent()) {
+            systemProperty pin.property, exactJar.get()
+        }
+    }
+}
+
 tasks.named('jar', Jar).configure {
+    includeEmptyDirs = false
     manifest {
         attributes(
                 'Automatic-Module-Name': 'io.github.janguenter.bluemap.powah',
@@ -43,6 +61,36 @@ tasks.named('jar', Jar).configure {
     from('LICENSE') {
         into 'META-INF'
         rename { 'LICENSE-bluemap-powah-addon' }
+    }
+    from('NOTICE.md') {
+        into 'META-INF'
+        rename { 'NOTICE-bluemap-powah-addon.md' }
+    }
+    from('THIRD_PARTY.md') {
+        into 'META-INF'
+        rename { 'THIRD_PARTY-bluemap-powah-addon.md' }
+    }
+    from('provenance/upstreams.json') {
+        into 'META-INF/bluemap-powah'
+    }
+}
+
+tasks.named('sourcesJar', Jar).configure {
+    includeEmptyDirs = false
+    from('LICENSE') {
+        into 'META-INF'
+        rename { 'LICENSE-bluemap-powah-addon' }
+    }
+    from('NOTICE.md') {
+        into 'META-INF'
+        rename { 'NOTICE-bluemap-powah-addon.md' }
+    }
+    from('THIRD_PARTY.md') {
+        into 'META-INF'
+        rename { 'THIRD_PARTY-bluemap-powah-addon.md' }
+    }
+    from('provenance/upstreams.json') {
+        into 'META-INF/bluemap-powah'
     }
 }
 
@@ -55,6 +103,150 @@ tasks.register('galleryZip', Zip) {
 tasks.named('build').configure { dependsOn tasks.named('galleryZip') }
 
 def productionJar = tasks.named('jar', Jar).flatMap { it.archiveFile }
+def publishedSourcesJar = tasks.named('sourcesJar', Jar).flatMap { it.archiveFile }
+def sharedAdapterApiPackage =
+        'io/github/janguenter/bluemap/addon/adapter/api/bluemap523/'
+def sharedAdapterApiClasses = [
+        'BlueMapRuntimeCompatibility.class',
+        'RegistryGuard.class',
+        'ResourceExtensionType.class',
+        'SyntheticDispatch.class'
+].collect { sharedAdapterApiPackage + it }
+def sharedAdapterApiSources = [
+        'BlueMapRuntimeCompatibility.java',
+        'RegistryGuard.java',
+        'ResourceExtensionType.java',
+        'SyntheticDispatch.java'
+].collect { sharedAdapterApiPackage + it }
+def legacyLocalAdapterPackage =
+        'io/github/janguenter/bluemap/powah/adapter/bluemap522/'
+def displacedAdapterHelpers = [
+        'io/github/janguenter/bluemap/powah/adapter/bluemap523/AdapterCompatibility',
+        'io/github/janguenter/bluemap/powah/adapter/bluemap523/PowahResourceExtensionType'
+]
+
+tasks.register('verifyPinnedArtifacts', Exec) {
+    doFirst {
+        def arguments = [
+                'bluemap-addon-toolkit',
+                'artifacts',
+                'verify',
+                '--manifest',
+                'provenance/upstreams.json'
+        ]
+        artifactPins.each { pin ->
+            def value = providers.gradleProperty(pin.property)
+            if (!value.isPresent()) {
+                throw new GradleException(
+                        "Set -P${pin.property} to the exact ${pin.key} runtime JAR."
+                )
+            }
+            arguments.add('--artifact')
+            arguments.add("${pin.key}=${value.get()}")
+        }
+        commandLine arguments
+    }
+}
+
+tasks.register('verifyProductionJar') {
+    dependsOn tasks.named('jar')
+    inputs.file(productionJar)
+    doLast {
+        def zip = new java.util.zip.ZipFile(inputs.files.singleFile)
+        try {
+            def entries = zip.entries().findAll { !it.directory }.collect { it.name }
+            def required = [
+                    'bluemap.addon.json',
+                    'io/github/janguenter/bluemap/powah/BlueMapPowahAddon.class',
+                    'META-INF/LICENSE-bluemap-powah-addon',
+                    'META-INF/NOTICE-bluemap-powah-addon.md',
+                    'META-INF/THIRD_PARTY-bluemap-powah-addon.md',
+                    'META-INF/bluemap-powah/upstreams.json'
+            ]
+            required.addAll(sharedAdapterApiClasses)
+            def missing = required.findAll { !entries.contains(it) }
+            def nonUniqueShared = sharedAdapterApiClasses.findAll { shared ->
+                entries.count { it == shared } != 1
+            }
+            def foreignClasses = entries.findAll { entry ->
+                entry.endsWith('.class')
+                        && !entry.startsWith('io/github/janguenter/bluemap/powah/')
+                        && !sharedAdapterApiClasses.contains(entry)
+            }
+            def forbidden = entries.findAll { entry ->
+                entry.endsWith('.jar')
+                        || entry == 'META-INF/neoforge.mods.toml'
+                        || entry == 'fabric.mod.json'
+                        || entry.endsWith('.mixins.json')
+                        || entry.startsWith('net/minecraft/')
+                        || entry.startsWith('net/neoforged/')
+                        || entry.startsWith('gallery/')
+                        || entry.startsWith('assets/powah/')
+                        || entry.startsWith(legacyLocalAdapterPackage)
+                        || displacedAdapterHelpers.any { helper -> entry.startsWith(helper) }
+                        || (entry.startsWith(sharedAdapterApiPackage)
+                            && !sharedAdapterApiClasses.contains(entry))
+            }
+            if (!missing.isEmpty() || !nonUniqueShared.isEmpty()
+                    || !foreignClasses.isEmpty() || !forbidden.isEmpty()) {
+                throw new GradleException(
+                        "Production JAR boundary mismatch: missing=${missing}, "
+                                + "nonUniqueShared=${nonUniqueShared}, "
+                                + "foreignClasses=${foreignClasses}, forbidden=${forbidden}"
+                )
+            }
+        } finally {
+            zip.close()
+        }
+    }
+}
+
+tasks.register('verifySourcesJar') {
+    dependsOn tasks.named('sourcesJar')
+    inputs.file(publishedSourcesJar)
+    doLast {
+        def zip = new java.util.zip.ZipFile(inputs.files.singleFile)
+        try {
+            def entries = zip.entries().findAll { !it.directory }.collect { it.name }
+            def required = [
+                    'io/github/janguenter/bluemap/powah/BlueMapPowahAddon.java',
+                    'bluemap.addon.json',
+                    'META-INF/LICENSE-bluemap-powah-addon',
+                    'META-INF/bluemap-powah/upstreams.json'
+            ]
+            required.addAll(sharedAdapterApiSources)
+            def missing = required.findAll { !entries.contains(it) }
+            def nonUniqueShared = sharedAdapterApiSources.findAll { shared ->
+                entries.count { it == shared } != 1
+            }
+            def foreignJava = entries.findAll { entry ->
+                entry.endsWith('.java')
+                        && !entry.startsWith('io/github/janguenter/bluemap/powah/')
+                        && !sharedAdapterApiSources.contains(entry)
+            }
+            def forbidden = entries.findAll { entry ->
+                entry.endsWith('.class')
+                        || entry.endsWith('.jar')
+                        || entry.startsWith('assets/powah/')
+                        || entry.startsWith(legacyLocalAdapterPackage)
+                        || displacedAdapterHelpers.any { helper -> entry == "${helper}.java" }
+                        || (entry.startsWith(sharedAdapterApiPackage)
+                            && !sharedAdapterApiSources.contains(entry))
+            }
+            if (!missing.isEmpty() || !nonUniqueShared.isEmpty()
+                    || !foreignJava.isEmpty() || !forbidden.isEmpty()) {
+                throw new GradleException(
+                        "Sources JAR boundary mismatch: missing=${missing}, "
+                                + "nonUniqueShared=${nonUniqueShared}, "
+                                + "foreignJava=${foreignJava}, forbidden=${forbidden}"
+                )
+            }
+        } finally {
+            zip.close()
+        }
+    }
+}
+
 tasks.register('verifyAcceptedProductionJar') {
     dependsOn tasks.named('jar')
     inputs.file(productionJar)
@@ -68,6 +260,9 @@ tasks.register('verifyAcceptedProductionJar') {
                 .encodeHex()
                 .toString()
 
+        if (expectedSize <= 0 || expectedSha256 == 'PENDING') {
+            throw new GradleException('Accepted production JAR identity is unsealed')
+        }
         if (jarFile.length() != expectedSize) {
             throw new GradleException(
                     "Accepted production JAR size mismatch: "
@@ -84,7 +279,13 @@ tasks.register('verifyAcceptedProductionJar') {
 }
 
 tasks.named('check').configure {
-    dependsOn tasks.named('verifyAcceptedProductionJar')
+    dependsOn tasks.named('verifyProductionJar')
+    dependsOn tasks.named('verifySourcesJar')
+}
+
+tasks.register('prototypeCheck') {
+    dependsOn tasks.named('check')
+    dependsOn tasks.named('verifyPinnedArtifacts')
 }
 
 publishing {

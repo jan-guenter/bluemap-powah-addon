@@ -3,7 +3,7 @@
  *
  * Geometry and persisted-state semantics are adapted from Powah 6.2.10.
  */
-package io.github.janguenter.bluemap.powah.adapter.bluemap522;
+package io.github.janguenter.bluemap.powah.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.map.TextureGallery;
 import de.bluecolored.bluemap.core.map.hires.MaxCapacityReachedException;
