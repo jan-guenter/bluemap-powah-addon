@@ -1,25 +1,50 @@
 {
-  "schema": 1,
-  "projectLicense": "LGPL-3.0-only",
-  "inputs": [
+  "artifacts": [
     {
-      "name": "BlueMap",
-      "version": "5.22-agent.backport-5.22-mc1.21.1-2",
-      "commit": "9be321df995a1103808621d529eb72773e719d4d",
-      "license": "MIT",
-      "lane": "runtime-interface",
-      "bundled": false
-    },
-    {
-      "name": "Powah",
-      "version": "6.2.10",
-      "filename": "Powah-6.2.10.jar",
-      "size": 2737991,
-      "sha256": "0e604a7356111c1dd44a00ea42fc1aa960d9faeb978261349df1138fcee4d0b4",
-      "sourceCommit": "a5a8f25b5bafb58b694dc44ef0e4c0f14d9e4c11",
+      "evidence": "Exact All the Mons 1.2.0 runtime JAR preserved by the accepted Powah release",
+      "evidence_tier": "T2_ARTIFACT_EXACT",
+      "file_name": "Powah-6.2.10.jar",
+      "key": "powah",
       "license": "LGPL-3.0-only",
-      "lane": "adapted-state-and-geometry",
-      "bundled": false
+      "mod_id": "powah",
+      "redistributed": false,
+      "sha1": "f134ab3e0ace3793abf93129e318eb817898a4e1",
+      "sha256": "0e604a7356111c1dd44a00ea42fc1aa960d9faeb978261349df1138fcee4d0b4",
+      "size": 2737991,
+      "source_commit": "a5a8f25b5bafb58b694dc44ef0e4c0f14d9e4c11",
+      "version": "6.2.10"
     }
-  ]
+  ],
+  "bluemap": {
+    "api_commit": "285c9a60eff3ac2b0cab308ce1058d1565be0971",
+    "commit": "7e07f4e74ec1e92a6ead9aa1e66054af3e133aac",
+    "license": "MIT",
+    "redistributed": false,
+    "tested_jar_sha256": "86a0323d24f472e425dda4d4e6bba2d7d8ce8315ad009930a67131128c715e62",
+    "tested_jar_size": 6545661,
+    "version": "5.22-feature.backport-5.23-stateless-java-web-server-46"
+  },
+  "shared_adapter_api_module": {
+    "artifact_bundled": false,
+    "commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",
+    "declared_license": "MIT",
+    "integration": "exact gitlink-pinned sources compiled into the consumer",
+    "project": "BlueMap Add-on Adapter API",
+    "repository": "https://github.com/jan-guenter/bluemap-addon-adapter-api",
+    "scope": "BlueMapRuntimeCompatibility, RegistryGuard, ResourceExtensionType and SyntheticDispatch",
+    "source_tree": "2f974c9bb2ba13888d69682f86f30f58922d30eb",
+    "status": "released",
+    "tag": "v0.1.0-alpha.2",
+    "version": "0.1.0-alpha.2"
+  },
+  "pack": {
+    "commit": "c7bb230f21d14d26859d0b92548f089b3a493ad9",
+    "minecraft": "1.21.1",
+    "name": "All the Mons",
+    "neoforge": "21.1.248",
+    "version": "1.2.0"
+  },
+  "profile": "powah-6.2.10",
+  "schema": 1,
+  "source_use": "Installed resources are interpreted only after exact-artifact admission; no Powah classes, assets, binaries, source, or captured meshes are packaged."
 }

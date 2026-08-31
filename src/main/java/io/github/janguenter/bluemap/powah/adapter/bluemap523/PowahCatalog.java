@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: LGPL-3.0-only
  */
-package io.github.janguenter.bluemap.powah.adapter.bluemap522;
+package io.github.janguenter.bluemap.powah.adapter.bluemap523;
 
 import de.bluecolored.bluemap.core.util.Key;
 
