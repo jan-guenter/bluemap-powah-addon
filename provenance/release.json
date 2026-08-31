@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "unpublished-migration-candidate",
+  "status": "owner-accepted-release-candidate",
   "published": false,
   "version": "0.1.0-alpha.2",
   "release_date": "2026-08-31",
@@ -35,6 +35,16 @@
     "commit": "7ad05e80ed70152fcf48c92c6c32de3f6d815667",
     "production_jar_size": 36572,
     "production_jar_sha256": "0b370dfcd5d8c0a5844dd920d60a2cdb74ed441d87ff038382d8292c374686c8",
+    "owner_visual_acceptance": true
+  },
+  "owner_accepted_integration": {
+    "accepted_at": "2026-08-31",
+    "runtime_suite_passed": 51,
+    "runtime_suite_failed": 0,
+    "runtime_suite_evidence_sha256": "b150f1902c852c8d14aff6e2c9b75e208c86e02609daab891cb7c0e00ac90efb",
+    "rendered_tiles": 589,
+    "rendered_regions": 4,
+    "render_evidence_sha256": "070a39c8c9afd4261d7ed92eb05949d10dbefd2b518185aa1edf637c4a91901e",
     "owner_visual_acceptance": true
   },
   "adapter_api_migration": {
@@ -72,6 +82,7 @@
     "production_archive_boundary_gate": true,
     "sources_archive_boundary_gate": true,
     "exact_feature_backport_runtime_identity_gate": true,
+    "accepted_artifact_identities_sealed": true,
     "gradle_9_6_1_clean_build": true,
     "consumer_tests_passed": 2,
     "checkstyle": true

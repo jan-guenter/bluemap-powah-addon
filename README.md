@@ -7,10 +7,10 @@ from Powah 6.2.10 in All the Mons 1.2.0.
 
 ## Status and compatibility
 
-Version `0.1.0-alpha.2` is an unpublished migration candidate. It preserves
-the owner-accepted alpha.1 renderer while moving the adapter boundary to the
-exact BlueMap 5.23 feature backport. Compatibility outside these inputs is not asserted.
-The candidate production JAR is 41,594 bytes with SHA-256
+Version `0.1.0-alpha.2` is the owner-accepted migration release candidate. It
+preserves the alpha.1 renderer while moving the adapter boundary to the exact
+BlueMap 5.23 feature backport. Compatibility outside these inputs is not
+asserted. The production JAR is 41,594 bytes with SHA-256
 `ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93`.
 
 ## Visual scope
