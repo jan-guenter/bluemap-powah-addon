@@ -10,6 +10,7 @@ import de.bluecolored.bluemap.core.resources.pack.resourcepack.ResourcePack;
 import de.bluecolored.bluemap.core.resources.pack.resourcepack.blockstate.Variant;
 import de.bluecolored.bluemap.core.util.Key;
 import de.bluecolored.bluemap.core.world.block.BlockNeighborhood;
+import io.github.janguenter.bluemap.addon.render.core.adapter.bluemap523.FaceLighting;
 
 /** Small cuboid and face emitter for cable and facade geometry. */
 final class PrimitiveEmitter {
