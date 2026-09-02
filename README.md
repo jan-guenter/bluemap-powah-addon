@@ -11,7 +11,8 @@ Version `0.1.0-alpha.3` is the render-core migration candidate. It preserves
 the owner-accepted alpha.2 renderer while replacing Powah's private
 `FaceLighting` copy with the exact released shared source. Compatibility
 outside these inputs is not asserted. Candidate artifact identities remain
-unsealed until the final local gate passes.
+sealed by the repository gates. The production JAR is 42,936 bytes with
+SHA-256 `73e159e6bb096ac0540fb46f23f231ddada492c34b5c4a6e235739b1decf1171`.
 
 ## Visual scope
 

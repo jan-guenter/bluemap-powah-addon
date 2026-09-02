@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "render-core-migration-candidate",
+  "status": "tested-render-core-migration-candidate",
   "published": false,
   "version": "0.1.0-alpha.3",
   "release_date": "2026-09-02",
@@ -10,23 +10,23 @@
   "candidate_artifacts": {
     "production_jar": {
       "file_name": "bluemap-powah-addon-0.1.0-alpha.3.jar",
-      "size": 0,
-      "sha256": "PENDING"
+      "size": 42936,
+      "sha256": "73e159e6bb096ac0540fb46f23f231ddada492c34b5c4a6e235739b1decf1171"
     },
     "sources_jar": {
       "file_name": "bluemap-powah-addon-0.1.0-alpha.3-sources.jar",
-      "size": 0,
-      "sha256": "PENDING"
+      "size": 26445,
+      "sha256": "a04d821fad1a83db135ea98d6c9d063420e8e1665c769dc71c25257af1982e6c"
     },
     "pom": {
       "file_name": "bluemap-powah-addon-0.1.0-alpha.3.pom",
-      "size": 0,
-      "sha256": "PENDING"
+      "size": 1371,
+      "sha256": "bb121e84ff9046a75ccaaf8bd13bd452293ca3fe5f9d116b2b0f1670abab72ae"
     },
     "gradle_module": {
       "file_name": "bluemap-powah-addon-0.1.0-alpha.3.module.json",
-      "size": 0,
-      "sha256": "PENDING"
+      "size": 2803,
+      "sha256": "f4eb362dd0e790e4fca033aa0c9b1e2f25376136b201dccb26700843f3939b53"
     }
   },
   "baseline_release": {
@@ -79,14 +79,34 @@
     "source_origin_commit": "8cdb778db3c123aec472404fdafecde28928e4b7",
     "source_license": "MIT",
     "removed_local_source_license": "LGPL-3.0-only",
+    "removed_local_source_sha256": "cf65a1692bba76c2628e030609d85fe38c50200a878863a284f7c0392a47be99",
+    "shared_source_sha256": "18b697f7c6c6d6bc636c3311bc463a7b933eb3ac14c88beb7e2856aee026aacf",
     "compiled_source_count": 1,
     "standalone_module_jar_bundled": false,
     "standalone_module_jar_nested": false,
     "standalone_module_jar_installed": false,
     "package_and_visibility_normalized_source_exact": true,
-    "package_normalized_face_lighting_bytecode_exact": false,
-    "package_normalized_primitive_emitter_bytecode_exact": false,
-    "gallery_byte_identical": false,
+    "production_archive": {
+      "old_entries": 26,
+      "new_entries": 26,
+      "unchanged_common_entries": 18,
+      "changed_common_entries": 6,
+      "removed_local_face_lighting_classes": 2,
+      "added_shared_face_lighting_classes": 2
+    },
+    "sources_archive": {
+      "old_entries": 23,
+      "new_entries": 23,
+      "unchanged_common_entries": 18,
+      "changed_common_entries": 4,
+      "removed_local_face_lighting_sources": 1,
+      "added_shared_face_lighting_sources": 1
+    },
+    "package_normalized_face_lighting_bytecode_exact": true,
+    "package_normalized_primitive_emitter_bytecode_exact": true,
+    "gallery_byte_identical": true,
+    "gallery_size": 3171,
+    "gallery_sha256": "fa7c2a7f62765358bbf89375cc0ab1556aadb7cb445d0d207feebf0b5e81ddb2",
     "behavior_change": false
   },
   "preserved_contract": {
@@ -103,9 +123,9 @@
     "production_archive_boundary_gate": true,
     "sources_archive_boundary_gate": true,
     "exact_feature_backport_runtime_identity_gate": true,
-    "accepted_artifact_identities_sealed": false,
-    "gradle_9_6_1_clean_build": false,
-    "consumer_tests_passed": 0,
-    "checkstyle": false
+    "accepted_artifact_identities_sealed": true,
+    "gradle_9_6_1_clean_build": true,
+    "consumer_tests_passed": 3,
+    "checkstyle": true
   }
 }
