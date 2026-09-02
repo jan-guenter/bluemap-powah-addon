@@ -24,6 +24,20 @@
     "tested_jar_size": 6545661,
     "version": "5.22-feature.backport-5.23-stateless-java-web-server-46"
   },
+  "shared_render_core_module": {
+    "artifact_bundled": false,
+    "commit": "24b84efdc8235f3f1323e1a8e9fd033080e3a79e",
+    "declared_license": "MIT",
+    "integration": "exact gitlink-pinned source compiled into the consumer",
+    "origin": "BlueMap Sophisticated Add-on commit 8cdb778db3c123aec472404fdafecde28928e4b7",
+    "project": "BlueMap Add-on Render Core",
+    "repository": "https://github.com/jan-guenter/bluemap-addon-render-core",
+    "scope": "FaceLighting and FaceLighting.Sample",
+    "source_tree": "424040931680fb82d37693f893ca887c0ed48eae",
+    "status": "released",
+    "tag": "v0.1.0-alpha.2",
+    "version": "0.1.0-alpha.2"
+  },
   "shared_adapter_api_module": {
     "artifact_bundled": false,
     "commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",

@@ -1,43 +1,18 @@
 {
   "schema_version": 1,
   "status": "owner-accepted-release-candidate",
-  "published": false,
-  "version": "0.1.0-alpha.2",
-  "release_date": "2026-08-31",
+  "version": "0.1.0-alpha.3",
+  "release_date": "2026-09-02",
   "repository": "https://github.com/jan-guenter/bluemap-powah-addon",
-  "tag": "v0.1.0-alpha.2",
-  "maven_coordinate": "io.github.jan-guenter:bluemap-powah-addon:0.1.0-alpha.2",
-  "candidate_artifacts": {
-    "production_jar": {
-      "file_name": "bluemap-powah-addon-0.1.0-alpha.2.jar",
-      "size": 41594,
-      "sha256": "ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93"
-    },
-    "sources_jar": {
-      "file_name": "bluemap-powah-addon-0.1.0-alpha.2-sources.jar",
-      "size": 25130,
-      "sha256": "da8ed00352dfb98a5136d8105835519bc7f2009a47305cd7a5c9270db1020fd4"
-    },
-    "pom": {
-      "file_name": "bluemap-powah-addon-0.1.0-alpha.2.pom",
-      "size": 1371,
-      "sha256": "36be48489b72f51ed3fbec37730d3db28d83619f7655cf48f03b5818fa9099ba"
-    },
-    "gradle_module": {
-      "file_name": "bluemap-powah-addon-0.1.0-alpha.2.module.json",
-      "size": 2803,
-      "sha256": "c44bbe8b2897eca48c18291ebccab813d8c7b333eb2bf66f531bc21166269dc3"
-    }
-  },
-  "baseline_release": {
-    "version": "0.1.0-alpha.1",
-    "tag": "v0.1.0-alpha.1",
-    "commit": "7ad05e80ed70152fcf48c92c6c32de3f6d815667",
-    "production_jar_size": 36572,
-    "production_jar_sha256": "0b370dfcd5d8c0a5844dd920d60a2cdb74ed441d87ff038382d8292c374686c8",
-    "owner_visual_acceptance": true
-  },
-  "owner_accepted_integration": {
+  "tag": "v0.1.0-alpha.3",
+  "maven_coordinate": "io.github.jan-guenter:bluemap-powah-addon:0.1.0-alpha.3",
+  "inherited_visual_acceptance": {
+    "baseline_version": "0.1.0-alpha.2",
+    "baseline_release_commit": "f5653f8a564b6f3d324f463e2a615e21b5bdd7f8",
+    "baseline_release_tree": "9b9801ea3e06f9e24b1e1e47037c841f94a2144d",
+    "baseline_production_jar_size": 41594,
+    "baseline_production_jar_sha256": "ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93",
+    "visual_acceptance": true,
     "accepted_at": "2026-08-31",
     "runtime_suite_passed": 51,
     "runtime_suite_failed": 0,
@@ -45,46 +20,110 @@
     "rendered_tiles": 589,
     "rendered_regions": 4,
     "render_evidence_sha256": "070a39c8c9afd4261d7ed92eb05949d10dbefd2b518185aa1edf637c4a91901e",
-    "owner_visual_acceptance": true
+    "scope": "Alpha.3 changes only the byte-equivalent FaceLighting source owner, package and visibility. Powah renderers, gallery, profile, route and fallback behavior are unchanged."
   },
-  "adapter_api_migration": {
-    "repository": "https://github.com/jan-guenter/bluemap-addon-adapter-api",
-    "version": "0.1.0-alpha.2",
-    "tag": "v0.1.0-alpha.2",
-    "release_target_commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",
-    "source_tree": "2f974c9bb2ba13888d69682f86f30f58922d30eb",
-    "target_bluemap_version": "5.22-feature.backport-5.23-stateless-java-web-server-46",
-    "bluemap_commit": "7e07f4e74ec1e92a6ead9aa1e66054af3e133aac",
-    "bluemap_api_commit": "285c9a60eff3ac2b0cab308ce1058d1565be0971",
-    "tested_source_commit": "d35cbbd4bfa4f3bd5c7ae275ec06eb669eee157f",
-    "tested_source_tree": "ed85ad70204589a2b3080f59e0ca0bcd11c51b27",
+  "final_release_artifacts": {
+    "production_jar": {
+      "file_name": "bluemap-powah-addon-0.1.0-alpha.3.jar",
+      "size": 42936,
+      "sha256": "73e159e6bb096ac0540fb46f23f231ddada492c34b5c4a6e235739b1decf1171"
+    },
+    "sources_jar": {
+      "file_name": "bluemap-powah-addon-0.1.0-alpha.3-sources.jar",
+      "size": 26445,
+      "sha256": "a04d821fad1a83db135ea98d6c9d063420e8e1665c769dc71c25257af1982e6c"
+    },
+    "pom": {
+      "file_name": "bluemap-powah-addon-0.1.0-alpha.3.pom",
+      "size": 1371,
+      "sha256": "bb121e84ff9046a75ccaaf8bd13bd452293ca3fe5f9d116b2b0f1670abab72ae"
+    },
+    "gradle_module": {
+      "file_name": "bluemap-powah-addon-0.1.0-alpha.3.module.json",
+      "size": 2803,
+      "sha256": "f4eb362dd0e790e4fca033aa0c9b1e2f25376136b201dccb26700843f3939b53"
+    },
+    "sha256sums": {
+      "file_name": "SHA256SUMS",
+      "size": 440,
+      "sha256": "5181b67340b8fb4e1fa816baf2a1165d70d5891c294b9ddf450b6bd68b73d530"
+    }
+  },
+  "adapter_api_source": {
+    "module_repository": "https://github.com/jan-guenter/bluemap-addon-adapter-api",
+    "module_version": "0.1.0-alpha.2",
+    "module_tag": "v0.1.0-alpha.2",
+    "module_release_commit": "e81f08bc4bfbf02d810ec8949a019130e2e61634",
+    "module_source_tree": "2f974c9bb2ba13888d69682f86f30f58922d30eb",
     "compiled_source_count": 4,
     "standalone_module_jar_bundled": false,
-    "standalone_module_jar_nested": false,
-    "standalone_module_jar_installed": false,
-    "local_adapter_package": "io.github.janguenter.bluemap.powah.adapter.bluemap523",
-    "displaced_local_helpers": [
-      "AdapterCompatibility",
-      "inline registry admission methods",
-      "PowahResourceExtensionType"
-    ]
+    "standalone_module_jar_installed": false
   },
-  "preserved_contract": {
-    "routed_block_count": 15,
-    "reactor_geometry_changed": false,
-    "energy_cable_endpoint_behavior_changed": false,
-    "energizing_orb_behavior_changed": false,
-    "gallery_sources_changed": false,
-    "runtime_profile_and_renderer_behavior_changed": false
+  "render_core_523_migration": {
+    "baseline_version": "0.1.0-alpha.2",
+    "baseline_release_commit": "f5653f8a564b6f3d324f463e2a615e21b5bdd7f8",
+    "baseline_production_jar_size": 41594,
+    "baseline_production_jar_sha256": "ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93",
+    "module_repository": "https://github.com/jan-guenter/bluemap-addon-render-core",
+    "module_version": "0.1.0-alpha.2",
+    "module_tag": "v0.1.0-alpha.2",
+    "module_release_commit": "24b84efdc8235f3f1323e1a8e9fd033080e3a79e",
+    "module_source_tree": "424040931680fb82d37693f893ca887c0ed48eae",
+    "bluemap_commit": "7e07f4e74ec1e92a6ead9aa1e66054af3e133aac",
+    "bluemap_api_commit": "285c9a60eff3ac2b0cab308ce1058d1565be0971",
+    "compiled_source_count": 1,
+    "source_package": "io.github.janguenter.bluemap.addon.render.core.adapter.bluemap523",
+    "standalone_module_jar_bundled": false,
+    "standalone_module_jar_installed": false,
+    "source_origin_repository": "https://github.com/jan-guenter/bluemap-sophisticated-addon",
+    "source_origin_commit": "8cdb778db3c123aec472404fdafecde28928e4b7",
+    "source_license": "MIT",
+    "removed_local_source_license": "LGPL-3.0-only",
+    "removed_local_source_sha256": "cf65a1692bba76c2628e030609d85fe38c50200a878863a284f7c0392a47be99",
+    "shared_source_sha256": "18b697f7c6c6d6bc636c3311bc463a7b933eb3ac14c88beb7e2856aee026aacf",
+    "production_archive": {
+      "old_entries": 26,
+      "new_entries": 26,
+      "unchanged_entries": 18,
+      "changed_common_entries": 6,
+      "removed_local_face_lighting_classes": 2,
+      "added_shared_face_lighting_classes": 2
+    },
+    "sources_archive": {
+      "old_entries": 23,
+      "new_entries": 23,
+      "unchanged_entries": 18,
+      "changed_common_entries": 4,
+      "removed_local_face_lighting_sources": 1,
+      "added_shared_face_lighting_sources": 1
+    },
+    "package_and_visibility_normalized_source_exact": true,
+    "package_normalized_face_lighting_bytecode_exact": true,
+    "package_normalized_primitive_emitter_bytecode_exact": true,
+    "gallery_byte_identical": true,
+    "gallery_size": 3171,
+    "gallery_sha256": "fa7c2a7f62765358bbf89375cc0ab1556aadb7cb445d0d207feebf0b5e81ddb2",
+    "preserved_contract": {
+      "routed_block_count": 15,
+      "reactor_geometry_changed": false,
+      "energy_cable_endpoint_behavior_changed": false,
+      "energizing_orb_behavior_changed": false,
+      "face_lighting_behavior_changed": false,
+      "gallery_sources_changed": false,
+      "runtime_profile_and_renderer_behavior_changed": false,
+      "consumer_tests_passed": 3
+    }
   },
   "verification": {
-    "exact_input_gate": true,
-    "production_archive_boundary_gate": true,
-    "sources_archive_boundary_gate": true,
+    "production_jar_exact_byte_gate": true,
+    "sources_jar_exact_byte_gate": true,
+    "publication_metadata_exact_byte_gate": true,
+    "render_core_source_boundary_gate": true,
+    "adapter_api_source_boundary_gate": true,
     "exact_feature_backport_runtime_identity_gate": true,
-    "accepted_artifact_identities_sealed": true,
+    "workflow_checksum_format_gate": true,
+    "exact_input_gate": true,
     "gradle_9_6_1_clean_build": true,
-    "consumer_tests_passed": 2,
     "checkstyle": true
   }
 }

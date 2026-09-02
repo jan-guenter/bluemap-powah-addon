@@ -7,11 +7,12 @@ from Powah 6.2.10 in All the Mons 1.2.0.
 
 ## Status and compatibility
 
-Version `0.1.0-alpha.2` is the owner-accepted migration release candidate. It
-preserves the alpha.1 renderer while moving the adapter boundary to the exact
-BlueMap 5.23 feature backport. Compatibility outside these inputs is not
-asserted. The production JAR is 41,594 bytes with SHA-256
-`ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93`.
+Version `0.1.0-alpha.3` is the render-core migration candidate. It preserves
+the owner-accepted alpha.2 renderer while replacing Powah's private
+`FaceLighting` copy with the exact released shared source. Compatibility
+outside these inputs is not asserted. Candidate artifact identities remain
+sealed by the repository gates. The production JAR is 42,936 bytes with
+SHA-256 `73e159e6bb096ac0540fb46f23f231ddada492c34b5c4a6e235739b1decf1171`.
 
 ## Visual scope
 
@@ -34,6 +35,13 @@ intentionally outside the static map view.
 Missing Powah, a different artifact, or unsupported data leaves stock BlueMap
 rendering unchanged. The add-on writes nothing to the world.
 
+The pinned `modules/bluemap-addon-render-core` gitlink contributes only the
+MIT-licensed BlueMap 5.23 `FaceLighting` source. The consumer compiles that
+source into this add-on. It neither installs nor nests the standalone module
+JAR. The shared source is package- and visibility-normalized equivalent to the
+removed local helper; emitters, gallery data, profiles, and fallback policy
+remain local and unchanged.
+
 ## Build and verification
 
 Clone with submodules so the exact reviewed build convention is available:
@@ -43,15 +51,18 @@ git clone --recurse-submodules \
   https://github.com/jan-guenter/bluemap-powah-addon.git
 ```
 
-For an existing checkout, initialize both exact support modules:
+For an existing checkout, initialize all exact support modules:
 
 ```bash
 git submodule update --init --recursive -- \
-  tooling/bluemap-addon-toolkit modules/bluemap-addon-adapter-api
+  tooling/bluemap-addon-toolkit modules/bluemap-addon-render-core \
+  modules/bluemap-addon-adapter-api
 ```
 
 The build rejects an uninitialized, dirty, incorrectly pinned, or
-source-tree-mismatched support module.
+source-tree-mismatched support module. Archive gates require exactly one
+shared `FaceLighting` class and source, reject the removed local helper and
+unexpected render-core classes, and reject nested JARs.
 
 ```bash
 gradle --no-daemon \
@@ -69,7 +80,7 @@ metadata, and checksums on GitHub Releases and Maven coordinates
 
 ## Installation
 
-Place `build/libs/bluemap-powah-addon-0.1.0-alpha.2.jar` in
+Place `build/libs/bluemap-powah-addon-0.1.0-alpha.3.jar` in
 `config/bluemap/packs`, keep the exact Powah JAR available to BlueMap's
 resource scan, restart, and rerender the affected area. Do not place this
 add-on in `mods`.

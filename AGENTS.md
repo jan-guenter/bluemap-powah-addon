@@ -16,7 +16,10 @@ portfolio. Read this file and `README.md` before changing it.
 - Adapter API `0.1.0-alpha.2`, commit
   `e81f08bc4bfbf02d810ec8949a019130e2e61634`, source tree
   `2f974c9bb2ba13888d69682f86f30f58922d30eb`
-- Add-on ID `bluemap-powah`, candidate version `0.1.0-alpha.2`
+- Render Core `0.1.0-alpha.2`, commit
+  `24b84efdc8235f3f1323e1a8e9fd033080e3a79e`, source tree
+  `424040931680fb82d37693f893ca887c0ed48eae`
+- Add-on ID `bluemap-powah`, candidate version `0.1.0-alpha.3`
 
 This is a standalone BlueMap add-on, not a NeoForge mod. Do not add client
 classes, candidate binaries or assets, nested JARs, Minecraft classes, Mixins,
@@ -36,11 +39,12 @@ or world state.
 
 ## Commands
 
-Initialize both pinned support modules and run the documented exact-input gate:
+Initialize all pinned support modules and run the documented exact-input gate:
 
 ```bash
 git submodule update --init --recursive -- \
-  tooling/bluemap-addon-toolkit modules/bluemap-addon-adapter-api
+  tooling/bluemap-addon-toolkit modules/bluemap-addon-render-core \
+  modules/bluemap-addon-adapter-api
 gradle --no-daemon -PpowahJar=/path/to/Powah-6.2.10.jar \
   clean prototypeCheck build generatePomFileForAddonPublication \
   generateMetadataFileForAddonPublication

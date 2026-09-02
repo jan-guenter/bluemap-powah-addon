@@ -79,16 +79,16 @@ jobs:
             verifyAcceptedProductionJar
           test "$(stat -c %s \
             "build/libs/bluemap-powah-addon-${VERSION}-sources.jar")" \
-            -eq 25130
+            -eq 26445
           test "$(stat -c %s build/publications/addon/pom-default.xml)" \
             -eq 1371
           test "$(stat -c %s build/publications/addon/module.json)" \
             -eq 2803
           sha256sum --check <<SHA256SUMS
-          ee886a58ad695c0932a4d0c0f6c7c66af699c9d29edbddcee1a15bdd237a1e93  build/libs/bluemap-powah-addon-${VERSION}.jar
-          da8ed00352dfb98a5136d8105835519bc7f2009a47305cd7a5c9270db1020fd4  build/libs/bluemap-powah-addon-${VERSION}-sources.jar
-          36be48489b72f51ed3fbec37730d3db28d83619f7655cf48f03b5818fa9099ba  build/publications/addon/pom-default.xml
-          c44bbe8b2897eca48c18291ebccab813d8c7b333eb2bf66f531bc21166269dc3  build/publications/addon/module.json
+          73e159e6bb096ac0540fb46f23f231ddada492c34b5c4a6e235739b1decf1171  build/libs/bluemap-powah-addon-${VERSION}.jar
+          a04d821fad1a83db135ea98d6c9d063420e8e1665c769dc71c25257af1982e6c  build/libs/bluemap-powah-addon-${VERSION}-sources.jar
+          bb121e84ff9046a75ccaaf8bd13bd452293ca3fe5f9d116b2b0f1670abab72ae  build/publications/addon/pom-default.xml
+          f4eb362dd0e790e4fca033aa0c9b1e2f25376136b201dccb26700843f3939b53  build/publications/addon/module.json
           SHA256SUMS
 
       - name: Prepare release bundle
@@ -104,7 +104,7 @@ jobs:
           (cd release && sha256sum --check SHA256SUMS)
           test "$(stat -c %s release/SHA256SUMS)" -eq 440
           test "$(sha256sum release/SHA256SUMS | cut -d ' ' -f 1)" = \
-            0ea473ae08639ff0e8f8f016a8f71f953fe6ccc93bd76fb84280e22faabdc372
+            5181b67340b8fb4e1fa816baf2a1165d70d5891c294b9ddf450b6bd68b73d530
 
       - name: Create or refresh draft release
         env:

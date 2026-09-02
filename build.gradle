@@ -15,6 +15,7 @@ base {
 }
 
 sourceSets {
+    main.java.srcDir 'modules/bluemap-addon-render-core/src/main/java'
     main.java.srcDir 'modules/bluemap-addon-adapter-api/src/main/java'
 }
 
@@ -104,6 +105,15 @@ tasks.named('build').configure { dependsOn tasks.named('galleryZip') }
 
 def productionJar = tasks.named('jar', Jar).flatMap { it.archiveFile }
 def publishedSourcesJar = tasks.named('sourcesJar', Jar).flatMap { it.archiveFile }
+def sharedRenderCorePackage =
+        'io/github/janguenter/bluemap/addon/render/core/adapter/bluemap523/'
+def sharedRenderCoreClasses = [
+        'FaceLighting.class',
+        'FaceLighting$Sample.class'
+].collect { sharedRenderCorePackage + it }
+def sharedRenderCoreSources = [
+        'FaceLighting.java'
+].collect { sharedRenderCorePackage + it }
 def sharedAdapterApiPackage =
         'io/github/janguenter/bluemap/addon/adapter/api/bluemap523/'
 def sharedAdapterApiClasses = [
@@ -124,6 +134,8 @@ def displacedAdapterHelpers = [
         'io/github/janguenter/bluemap/powah/adapter/bluemap523/AdapterCompatibility',
         'io/github/janguenter/bluemap/powah/adapter/bluemap523/PowahResourceExtensionType'
 ]
+def removedLocalFaceLighting =
+        'io/github/janguenter/bluemap/powah/adapter/bluemap523/FaceLighting'
 
 tasks.register('verifyPinnedArtifacts', Exec) {
     doFirst {
@@ -163,14 +175,17 @@ tasks.register('verifyProductionJar') {
                     'META-INF/THIRD_PARTY-bluemap-powah-addon.md',
                     'META-INF/bluemap-powah/upstreams.json'
             ]
+            required.addAll(sharedRenderCoreClasses)
             required.addAll(sharedAdapterApiClasses)
             def missing = required.findAll { !entries.contains(it) }
-            def nonUniqueShared = sharedAdapterApiClasses.findAll { shared ->
+            def nonUniqueShared = (sharedRenderCoreClasses + sharedAdapterApiClasses)
+                    .findAll { shared ->
                 entries.count { it == shared } != 1
             }
             def foreignClasses = entries.findAll { entry ->
                 entry.endsWith('.class')
                         && !entry.startsWith('io/github/janguenter/bluemap/powah/')
+                        && !sharedRenderCoreClasses.contains(entry)
                         && !sharedAdapterApiClasses.contains(entry)
             }
             def forbidden = entries.findAll { entry ->
@@ -183,7 +198,10 @@ tasks.register('verifyProductionJar') {
                         || entry.startsWith('gallery/')
                         || entry.startsWith('assets/powah/')
                         || entry.startsWith(legacyLocalAdapterPackage)
+                        || entry.startsWith(removedLocalFaceLighting)
                         || displacedAdapterHelpers.any { helper -> entry.startsWith(helper) }
+                        || (entry.startsWith(sharedRenderCorePackage)
+                            && !sharedRenderCoreClasses.contains(entry))
                         || (entry.startsWith(sharedAdapterApiPackage)
                             && !sharedAdapterApiClasses.contains(entry))
             }
@@ -214,14 +232,17 @@ tasks.register('verifySourcesJar') {
                     'META-INF/LICENSE-bluemap-powah-addon',
                     'META-INF/bluemap-powah/upstreams.json'
             ]
+            required.addAll(sharedRenderCoreSources)
             required.addAll(sharedAdapterApiSources)
             def missing = required.findAll { !entries.contains(it) }
-            def nonUniqueShared = sharedAdapterApiSources.findAll { shared ->
+            def nonUniqueShared = (sharedRenderCoreSources + sharedAdapterApiSources)
+                    .findAll { shared ->
                 entries.count { it == shared } != 1
             }
             def foreignJava = entries.findAll { entry ->
                 entry.endsWith('.java')
                         && !entry.startsWith('io/github/janguenter/bluemap/powah/')
+                        && !sharedRenderCoreSources.contains(entry)
                         && !sharedAdapterApiSources.contains(entry)
             }
             def forbidden = entries.findAll { entry ->
@@ -229,7 +250,10 @@ tasks.register('verifySourcesJar') {
                         || entry.endsWith('.jar')
                         || entry.startsWith('assets/powah/')
                         || entry.startsWith(legacyLocalAdapterPackage)
+                        || entry == "${removedLocalFaceLighting}.java"
                         || displacedAdapterHelpers.any { helper -> entry == "${helper}.java" }
+                        || (entry.startsWith(sharedRenderCorePackage)
+                            && !sharedRenderCoreSources.contains(entry))
                         || (entry.startsWith(sharedAdapterApiPackage)
                             && !sharedAdapterApiSources.contains(entry))
             }

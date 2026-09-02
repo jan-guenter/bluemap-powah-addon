@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.3 - 2026-09-02
+
+- Compile `FaceLighting` from the exact `bluemap-addon-render-core`
+  `0.1.0-alpha.2` source tree and remove the private duplicate.
+- Add fail-closed gitlink, checkout, source-tree, archive, and local-class
+  absence gates for the shared source.
+- Preserve reactor, energy-cable endpoint, Energizing Orb, gallery, profile,
+  route, and fallback behavior.
+
 ## 0.1.0-alpha.2 - 2026-08-31
 
 - Target only BlueMap feature-backport commit
